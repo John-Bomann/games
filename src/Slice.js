@@ -3,18 +3,20 @@ import { Box } from "@mui/material";
 import { purple } from "@mui/material/colors";
 
 export default function Slice({
+  id,
   num,
-  degree,
-  angle,
+  segments,
   filled,
   handleClick,
   hovered,
   handleMouseOut,
   handleMouseOver,
 }) {
+  const angle = 360 / segments;
+  const degree = angle * (num - 1);
   return (
     <Box
-      onClick={handleClick(num)}
+      onClick={() => handleClick(id, num)}
       onMouseOver={handleMouseOver}
       onMouseOut={handleMouseOut}
       sx={{
