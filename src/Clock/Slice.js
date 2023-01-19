@@ -14,6 +14,9 @@ export default function Slice({
 }) {
   const angle = 360 / segments;
   const degree = angle * (num - 1);
+  if (id === 1674165227168) {
+    console.log(num);
+  }
   return (
     <Box
       onClick={() => handleClick(id, num)}

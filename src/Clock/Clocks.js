@@ -38,12 +38,29 @@ export default function Clocks() {
       })
     );
   };
+  const handleSegmentChange = (id, segments) => {
+    setClocks(
+      clocks.map((clock) => {
+        if (clock.id === id) {
+          return { ...clock, segments };
+        } else {
+          return clock;
+        }
+      })
+    );
+  };
 
   const handleNewConfirm = (name, segments) => {
-    setClocks((prevState) => [...prevState, { id: Date.now(), segments, name, filled: 0 }]);
+    setClocks((prevState) => [
+      ...prevState,
+      { id: Date.now(), segments: parseInt(segments), name, filled: 0 },
+    ]);
     setClockEditorOpen(false);
   };
-  console.log(clocks);
+
+  const handleDelete = (id) => {
+    setClocks((prevState) => prevState.filter((clock) => clock.id !== id));
+  };
 
   return (
     <Box>
@@ -62,6 +79,8 @@ export default function Clocks() {
               id={clock.id}
               handleSliceClick={handleSliceClick}
               handleNameChange={handleNameChange}
+              handleSegmentChange={handleSegmentChange}
+              handleDelete={handleDelete}
             />
           </Grid>
         ))}
