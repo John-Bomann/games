@@ -14,7 +14,7 @@ export default function NavBar() {
           </Typography>
           <Tabs value={location.pathname} textColor="primary" indicatorColor="secondary">
             <Tab value="/clocks" label="Clocks" component={Link} to="/clocks" />
-            <Tab value="/tables" label="Table" component={Link} to="/tables" />
+            <Tab value="/tables" label="Tables" component={Link} to="/tables" />
           </Tabs>
         </Toolbar>
       </AppBar>
