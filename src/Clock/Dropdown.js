@@ -6,7 +6,7 @@ export default function Dropdown({ anchorEl, handleClose, handleClick, segments 
   return (
     <Menu anchorEl={anchorEl} open={Boolean(anchorEl)} onClose={handleClose}>
       {options.map((num) => (
-        <MenuItem selected={segments === num} onClick={handleClick(num)}>
+        <MenuItem key={num} selected={segments === num} onClick={handleClick(num)}>
           {num}
         </MenuItem>
       ))}

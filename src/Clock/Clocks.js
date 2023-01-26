@@ -1,7 +1,9 @@
 import { Box, Button, Grid, Typography } from "@mui/material";
+import request, { gql } from "graphql-request";
 import React, { useEffect, useState } from "react";
 import Clock from "./Clock";
 import NewClock from "./NewClock";
+import { GRAPHQL_ENDPOINT } from "../constants";
 
 export default function Clocks() {
   const [clocks, setClocks] = useState([
@@ -10,6 +12,27 @@ export default function Clocks() {
     { id: 3, segments: 4, name: "Angery Boss Man", filled: 0 },
   ]);
   const [clockEditorOpen, setClockEditorOpen] = useState(false);
+
+  const getClocksQuery = gql`
+  query getClocks {
+    clock() {
+      _id
+      filled
+      name
+      segments
+      type
+    }
+  }
+  `;
+  // const headers =
+  const getClocks = async () => {
+    const response = await request(GRAPHQL_ENDPOINT);
+    console.log(response);
+    setClocks(response);
+  };
+  useEffect(() => {
+    const clocksResponse = getClocks();
+  }, []);
 
   // slice is the 1-indexed location of the clicked slice
   const handleSliceClick = (id, slice) => {
