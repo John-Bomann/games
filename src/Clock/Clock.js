@@ -1,15 +1,21 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 
 import { Box, IconButton, TextField, Typography } from "@mui/material";
 import { styled } from "@mui/system";
 import Slice from "./Slice";
 import { Delete, Numbers } from "@mui/icons-material";
 import Dropdown from "./Dropdown";
+import request, { gql } from "graphql-request";
+import { GRAPHQL_ENDPOINT } from "../constants";
+import { UserContext } from "../userContext";
+import { useCallback } from "react";
+import debounce from "lodash/debounce";
 
 const Wrapper = styled("ul")({
   position: "relative",
   border: "1px solid black",
   padding: 0,
+  marginTop: 4,
   width: 200,
   height: 200,
   borderRadius: "50%",
@@ -18,26 +24,59 @@ const Wrapper = styled("ul")({
 });
 
 export default function Clock({
-  id,
+  _id,
   filled,
   segments,
+  type,
   name,
   handleSliceClick,
   handleNameChange,
   handleSegmentChange,
   handleDelete,
 }) {
-  const angle = 360 / segments;
   const [hovered, setHovered] = useState();
   const [edit, setEdit] = useState(false);
-  const [clockName, setClockName] = useState(name);
+  const { user } = useContext(UserContext);
   const [anchorEl, setAnchorEl] = useState();
+
+  const editClockQuery = gql`
+    mutation ($query: ClockQueryInput, $set: ClockUpdateInput!) {
+      updateOneClock(query: $query, set: $set) {
+        _id
+      }
+    }
+  `;
+  const editClockVars = {
+    query: {
+      _id: _id,
+    },
+    set: {
+      filled,
+      name,
+      segments,
+      type,
+    },
+  };
+  const headers = { Authorization: `Bearer ${user._accessToken}` };
+  const updateClocks = async (vars) => {
+    await request(GRAPHQL_ENDPOINT, editClockQuery, vars, headers);
+  };
+
+  const saveChanges = useCallback(
+    debounce((vars) => {
+      updateClocks(vars);
+    }, 500),
+    []
+  );
+  useEffect(() => {
+    saveChanges(editClockVars);
+  }, [_id, filled, segments, type, name]);
 
   const handleMouseOver = (num) => () => setHovered(num);
   const handleMouseOut = () => setHovered();
 
   const changeName = (e) => {
-    handleNameChange(id, e.target.value);
+    handleNameChange(_id, e.target.value);
   };
 
   const handleBlur = () => {
@@ -54,9 +93,9 @@ export default function Clock({
   };
   const handleNumItemClick = (num) => () => {
     if (num < filled) {
-      handleSliceClick(id, num);
+      handleSliceClick(_id, num);
     }
-    handleSegmentChange(id, num);
+    handleSegmentChange(_id, num);
     setAnchorEl();
   };
 
@@ -71,10 +110,16 @@ export default function Clock({
             onKeyDown={keyDown}
             variant="standard"
             autoFocus
+            inputProps={{
+              style: {
+                fontSize: 20,
+                textAlign: "center",
+              },
+            }}
           />
         ) : (
           <Typography
-            variant="h5"
+            variant="h6"
             fontWeight={600}
             onClick={() => setEdit(true)}
             width="100%"
@@ -88,7 +133,7 @@ export default function Clock({
             .map((el, idx) => (
               <li key={idx}>
                 <Slice
-                  id={id}
+                  id={_id}
                   num={idx + 1}
                   filled={filled >= idx + 1}
                   segments={segments}
@@ -105,7 +150,7 @@ export default function Clock({
         <IconButton onClick={handleNumClick}>
           <Numbers />
         </IconButton>
-        <IconButton onClick={() => handleDelete(id)}>
+        <IconButton onClick={() => handleDelete(_id)}>
           <Delete />
         </IconButton>
       </Box>

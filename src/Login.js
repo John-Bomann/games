@@ -1,11 +1,16 @@
 import { Button, TextField } from "@mui/material";
 import { useContext, useEffect, useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
-import { UserContext } from "../contexts/user.context";
+import { UserContext } from "./userContext";
 
 const Login = () => {
+  const [form, setForm] = useState({
+    email: "",
+    password: "",
+  });
   const navigate = useNavigate();
   const location = useLocation();
+  const [error, setError] = useState(false);
 
   // We are consuming our user-management context to
   // get & set the user details here
@@ -13,22 +18,11 @@ const Login = () => {
 
   // We are using React's "useState" hook to keep track
   //  of the form values.
-  const [form, setForm] = useState({
-    email: "",
-    password: "",
-  });
 
   // This function will be called whenever the user edits the form.
   const onFormInputChange = (event) => {
     const { name, value } = event.target;
     setForm({ ...form, [name]: value });
-  };
-
-  // This function will redirect the user to the
-  // appropriate page once the authentication is done.
-  const redirectNow = () => {
-    const redirectTo = location.search.replace("?redirectTo=", "");
-    navigate(redirectTo ? redirectTo : "/");
   };
 
   // Since there can be chances that the user is already logged in
@@ -41,7 +35,7 @@ const Login = () => {
       const fetchedUser = await fetchUser();
       if (fetchedUser) {
         // Redirecting them once fetched.
-        redirectNow();
+        navigate("/dashboard");
       }
     }
   };
@@ -54,16 +48,17 @@ const Login = () => {
   }, []);
 
   // This function gets fired when the user clicks on the "Login" button.
-  const onSubmit = async (event) => {
+  const onSubmit = async () => {
     try {
       // Here we are passing user details to our emailPasswordLogin
       // function that we imported from our realm/authentication.js
       // to validate the user credentials and login the user into our App.
       const user = await emailPasswordLogin(form.email, form.password);
       if (user) {
-        redirectNow();
+        navigate("/dashboard");
       }
     } catch (error) {
+      setError(true);
       alert(error);
     }
   };
@@ -71,6 +66,7 @@ const Login = () => {
   return (
     <form style={{ display: "flex", flexDirection: "column", maxWidth: "300px", margin: "auto" }}>
       <h1>Login</h1>
+      {error && <p style={{ color: "red" }}>Incorrect email or password</p>}
       <TextField
         label="Email"
         type="email"
@@ -93,7 +89,7 @@ const Login = () => {
         Login
       </Button>
       <p>
-        Don't have an account? <Link to="/signup">Signup</Link>
+        <Button>Continue as Guest</Button>
       </p>
     </form>
   );

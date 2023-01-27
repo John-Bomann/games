@@ -19,17 +19,10 @@ export const UserProvider = ({ children }) => {
     setUser(authedUser);
     return authedUser;
   };
-
-  // Function to signup user into our Realm using their email & password
-  const emailPasswordSignup = async (email, password) => {
-    try {
-      await app.emailPasswordAuth.registerUser(email, password);
-      // Since we are automatically confirming our users we are going to login
-      // the user using the same credentials once the signup is complete.
-      return emailPasswordLogin(email, password);
-    } catch (error) {
-      throw error;
-    }
+  const anonymousLogin = async () => {
+    const authedUser = await app.logIn(Credentials.anonymous());
+    setUser(authedUser);
+    return authedUser;
   };
 
   // Function to fetch-user(if the user is already logged in) from local storage
@@ -61,7 +54,7 @@ export const UserProvider = ({ children }) => {
 
   return (
     <UserContext.Provider
-      value={{ user, setUser, fetchUser, emailPasswordLogin, emailPasswordSignup, logOutUser }}>
+      value={{ user, setUser, fetchUser, emailPasswordLogin, anonymousLogin, logOutUser }}>
       {children}
     </UserContext.Provider>
   );

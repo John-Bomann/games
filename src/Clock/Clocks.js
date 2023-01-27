@@ -4,41 +4,40 @@ import React, { useEffect, useState } from "react";
 import Clock from "./Clock";
 import NewClock from "./NewClock";
 import { GRAPHQL_ENDPOINT } from "../constants";
+import { useContext } from "react";
+import { UserContext } from "../userContext";
 
 export default function Clocks() {
-  const [clocks, setClocks] = useState([
-    { id: 1, segments: 6, name: "Alert", filled: 3 },
-    { id: 2, segments: 8, name: "Make Flamethrower", filled: 0 },
-    { id: 3, segments: 4, name: "Angery Boss Man", filled: 0 },
-  ]);
+  const [clocks, setClocks] = useState([]);
   const [clockEditorOpen, setClockEditorOpen] = useState(false);
+  const { user } = useContext(UserContext);
 
   const getClocksQuery = gql`
-  query getClocks {
-    clock() {
-      _id
-      filled
-      name
-      segments
-      type
+    query {
+      clocks(sortBy: ORDER_DESC) {
+        _id
+        filled
+        name
+        segments
+        type
+      }
     }
-  }
   `;
-  // const headers =
+
+  const headers = { Authorization: `Bearer ${user._accessToken}` };
   const getClocks = async () => {
-    const response = await request(GRAPHQL_ENDPOINT);
-    console.log(response);
-    setClocks(response);
+    const response = await request(GRAPHQL_ENDPOINT, getClocksQuery, {}, headers);
+    setClocks(response.clocks);
   };
   useEffect(() => {
-    const clocksResponse = getClocks();
+    getClocks();
   }, []);
 
   // slice is the 1-indexed location of the clicked slice
   const handleSliceClick = (id, slice) => {
     setClocks(
       clocks.map((clock) => {
-        if (clock.id === id) {
+        if (clock._id === id) {
           if (slice > clock.filled) {
             return { ...clock, filled: slice };
           } else {
@@ -53,7 +52,7 @@ export default function Clocks() {
   const handleNameChange = (id, name) => {
     setClocks(
       clocks.map((clock) => {
-        if (clock.id === id) {
+        if (clock._id === id) {
           return { ...clock, name };
         } else {
           return clock;
@@ -64,7 +63,7 @@ export default function Clocks() {
   const handleSegmentChange = (id, segments) => {
     setClocks(
       clocks.map((clock) => {
-        if (clock.id === id) {
+        if (clock._id === id) {
           return { ...clock, segments };
         } else {
           return clock;
@@ -73,33 +72,45 @@ export default function Clocks() {
     );
   };
 
-  const handleNewConfirm = (name, segments) => {
-    setClocks((prevState) => [
-      ...prevState,
-      { id: Date.now(), segments: parseInt(segments), name, filled: 0 },
-    ]);
+  const createClockQuery = gql`
+    mutation AddClock($data: ClockInsertInput!) {
+      insertOneClock(data: $data) {
+        _id
+      }
+    }
+  `;
+  // const
+  const handleNewConfirm = async (name, segments) => {
+    const response = await request(
+      GRAPHQL_ENDPOINT,
+      createClockQuery,
+      { data: { name, segments, type: "good", filled: 0, order: clocks.length + 1, row: 1 } },
+      headers
+    );
+    setClocks((prevState) => [...prevState, response.insertOneClock]);
     setClockEditorOpen(false);
   };
 
-  const handleDelete = (id) => {
-    setClocks((prevState) => prevState.filter((clock) => clock.id !== id));
+  const deleteClockQuery = gql`
+    mutation ($query: ClockQueryInput!) {
+      deleteOneClock(query: $query) {
+        _id
+      }
+    }
+  `;
+
+  const handleDelete = async (_id) => {
+    setClocks((prevState) => prevState.filter((clock) => clock._id !== _id));
+    await request(GRAPHQL_ENDPOINT, deleteClockQuery, { query: { _id } }, headers);
   };
 
   return (
-    <Box>
-      <Box display="flex" justifyContent="flex-end" p={2}>
-        <Button variant="contained" size="large" onClick={() => setClockEditorOpen(true)}>
-          Add Clock
-        </Button>
-      </Box>
+    <Box my={2}>
       <Grid container spacing={1}>
         {clocks.map((clock) => (
-          <Grid item xs={3} key={clock.id}>
+          <Grid item xs={3} key={clock._id}>
             <Clock
-              segments={clock.segments}
-              name={clock.name}
-              filled={clock.filled}
-              id={clock.id}
+              {...clock}
               handleSliceClick={handleSliceClick}
               handleNameChange={handleNameChange}
               handleSegmentChange={handleSegmentChange}
@@ -111,6 +122,7 @@ export default function Clocks() {
       <NewClock
         open={clockEditorOpen}
         handleClose={() => setClockEditorOpen(false)}
+        handleOpen={() => setClockEditorOpen(true)}
         handleNewConfirm={handleNewConfirm}
       />
     </Box>
