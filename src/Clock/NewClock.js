@@ -16,6 +16,7 @@ export default function NewClock({ open, handleClose, handleOpen, handleNewConfi
   const [name, setName] = useState("");
   const [segments, setSegments] = useState("4");
   const [row, setRow] = useState("1");
+  const [type, setType] = useState("good");
   const handleNameChange = (e) => {
     setName(e.target.value);
   };
@@ -25,10 +26,13 @@ export default function NewClock({ open, handleClose, handleOpen, handleNewConfi
   const handleRowChange = (e) => {
     setRow(e.target.value);
   };
+  const handleTypeChange = (e) => {
+    setType(e.target.value);
+  };
   const handleClick = () => {
     setName("");
     setSegments("4");
-    handleNewConfirm(name, segments, row);
+    handleNewConfirm(name, segments, row, type);
   };
 
   return (
@@ -56,6 +60,10 @@ export default function NewClock({ open, handleClose, handleOpen, handleNewConfi
             <TextField select value={row} onChange={handleRowChange} label="Row">
               <MenuItem value={1}>Short Term</MenuItem>
               <MenuItem value={2}>Long Term</MenuItem>
+            </TextField>
+            <TextField select value={type} onChange={handleTypeChange} label="Type">
+              <MenuItem value="good">Good</MenuItem>
+              <MenuItem value="bad">Bad</MenuItem>
             </TextField>
           </Stack>
         </DialogContent>

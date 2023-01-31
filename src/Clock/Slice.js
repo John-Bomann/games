@@ -1,10 +1,11 @@
 import React from "react";
-import { Box } from "@mui/material";
+import { Box, useTheme } from "@mui/material";
 import { purple } from "@mui/material/colors";
 
 export default function Slice({
   id,
   num,
+  type,
   segments,
   filled,
   handleClick,
@@ -14,6 +15,8 @@ export default function Slice({
 }) {
   const angle = 360 / segments;
   const degree = angle * (num - 1);
+  const theme = useTheme();
+  const typeColor = type === "good" ? theme.palette.secondary : theme.palette.tertiary;
   return (
     <Box
       onClick={() => handleClick(id, num)}
@@ -29,9 +32,9 @@ export default function Slice({
         height: "60%",
         transformOrigin: "0% 100%",
         transform: `rotate(${degree}deg) skewY(calc(-90deg + ${angle}deg))`,
-        background: filled ? purple["700"] : hovered ? purple["300"] : "white",
-        // border: filled && "2px solid white",
-        border: filled ? "2px solid white" : `2px solid ${purple["700"]}`,
+        background: filled ? typeColor.main : hovered ? typeColor.light : "#313131",
+        border: "2px solid white",
+        // border: filled ? "2px solid white" : `2px solid ${purple["700"]}`,
       }}
     />
   );

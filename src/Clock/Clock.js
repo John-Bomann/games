@@ -3,7 +3,7 @@ import React, { useContext, useEffect, useState } from "react";
 import { Box, IconButton, TextField, Typography } from "@mui/material";
 import { styled } from "@mui/system";
 import Slice from "./Slice";
-import { Delete, Numbers } from "@mui/icons-material";
+import { Delete, Numbers, InvertColors } from "@mui/icons-material";
 import Dropdown from "./Dropdown";
 import request, { gql } from "graphql-request";
 import { GRAPHQL_ENDPOINT } from "../constants";
@@ -14,9 +14,10 @@ import { useRef } from "react";
 
 const Wrapper = styled("ul")({
   position: "relative",
-  border: "1px solid black",
+  // border: "1px solid black",
   padding: 0,
   marginTop: 4,
+  marginBottom: 0,
   width: 200,
   height: 200,
   borderRadius: "50%",
@@ -106,8 +107,8 @@ export default function Clock({
   };
 
   return (
-    <Box display="flex" justifyContent="center" width="100%" height="100%" flex={0.25}>
-      <Box display="flex" flexDirection="column" alignItems="center">
+    <Box display="flex" width="100%" height="100%" flex={0.25}>
+      <Box display="flex" flexDirection="column">
         {edit ? (
           <TextField
             value={name}
@@ -143,6 +144,7 @@ export default function Clock({
                   num={idx + 1}
                   filled={filled >= idx + 1}
                   segments={segments}
+                  type={type}
                   hovered={idx <= hovered}
                   handleClick={handleSliceClick}
                   handleMouseOver={handleMouseOver(idx)}
@@ -153,6 +155,10 @@ export default function Clock({
         </Wrapper>
       </Box>
       <Box display="flex" alignSelf="flex-end" flexDirection="column">
+        <IconButton
+          onClick={() => handleClockChange("type", _id, type === "good" ? "bad" : "good")}>
+          <InvertColors />
+        </IconButton>
         <IconButton onClick={handleNumClick}>
           <Numbers />
         </IconButton>

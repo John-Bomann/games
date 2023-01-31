@@ -1,4 +1,4 @@
-import { Box, Button, Grid, Stack, Typography } from "@mui/material";
+import { Box, Button, Grid, Paper, Stack, Typography } from "@mui/material";
 import request, { gql } from "graphql-request";
 import React, { useEffect, useState } from "react";
 import Clock from "./Clock";
@@ -78,11 +78,11 @@ export default function Clocks() {
     }
   `;
 
-  const handleNewConfirm = async (name, segments, row) => {
+  const handleNewConfirm = async (name, segments, row, type) => {
     const response = await request(
       GRAPHQL_ENDPOINT,
       createClockQuery,
-      { data: { name, segments, type: "good", filled: 0, order: clocks.length + 1, row } },
+      { data: { name, segments, type, filled: 0, order: clocks.length + 1, row } },
       headers
     );
 
@@ -107,9 +107,9 @@ export default function Clocks() {
   const row2 = clocks.filter((clock) => clock.row === 2);
 
   return (
-    <Box m={2}>
-      <Box mb={3}>
-        <Typography variant="h4" textAlign="left" ml={6} gutterBottom>
+    <Box p={4} component={Paper} minHeight="calc(100vh - 64px)">
+      <Box mb={3} minHeight="150px">
+        <Typography variant="h4" textAlign="left" gutterBottom>
           Short Term
         </Typography>
         <Grid container spacing={1} alignItems="start">
@@ -125,8 +125,8 @@ export default function Clocks() {
           ))}
         </Grid>
       </Box>
-      <Box justifyContent="start">
-        <Typography variant="h4" textAlign="left" ml={6} gutterBottom>
+      <Box minHeight="150px">
+        <Typography variant="h4" textAlign="left" gutterBottom>
           Long Term
         </Typography>
         <Grid container spacing={1} alignItems="start">

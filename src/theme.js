@@ -3,38 +3,44 @@ import { blueGrey, deepPurple, grey, purple } from "@mui/material/colors";
 import createPalette from "@mui/material/styles/createPalette";
 
 const palette = createPalette({
+  mode: "dark",
   primary: {
-    main: purple[700],
-    light: "#ae52d4",
-    dark: "#4a0072",
+    main: deepPurple[300],
+    light: "#AA90D7",
+    dark: "#68518F",
   },
   secondary: {
-    main: grey[300],
-    light: grey[100],
-    dark: grey[500],
+    main: "#7581cd",
+    light: "#a7b0ff",
+    dark: "#44559c",
+  },
+  tertiary: {
+    main: "#f06900",
+    light: "#ff9a3e",
+    dark: "#b63900",
   },
 });
 
 const theme = createTheme({
   palette,
   components: {
-    MuiTab: {
-      styleOverrides: {
-        root: {
-          color: palette.secondary.main,
-          "&.Mui-selected": {
-            color: palette.secondary.light,
-          },
-        },
-      },
-    },
-    MuiTabs: {
-      styleOverrides: {
-        indicator: {
-          backgroundColor: palette.secondary.light,
-        },
-      },
-    },
+    // MuiTab: {
+    //   styleOverrides: {
+    //     root: {
+    //       color: palette.secondary.main,
+    //       "&.Mui-selected": {
+    //         color: palette.secondary.light,
+    //       },
+    //     },
+    //   },
+    // },
+    // MuiTabs: {
+    //   styleOverrides: {
+    //     indicator: {
+    //       backgroundColor: palette.secondary.light,
+    //     },
+    //   },
+    // },
   },
 });
 
