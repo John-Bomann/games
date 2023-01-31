@@ -27,7 +27,7 @@ export default function Dashboard() {
         <Typography variant="h3" bgcolor="primary.main" color="primary.contrastText" py={1}>
           Blades in the Dark
         </Typography>
-        <Stack direction="row" spacing={10} sx={{ px: 3, pt: 3 }}>
+        <Stack direction="row" spacing={10} sx={{ px: 3, pt: 3 }} justifyContent="center">
           {features.map((feature) => (
             <Card key={feature.path} sx={{ width: 400 }}>
               <CardActionArea component={Link} to={feature.path} sx={{ p: 2, height: "100%" }}>

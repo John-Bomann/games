@@ -14,9 +14,6 @@ export default function Slice({
 }) {
   const angle = 360 / segments;
   const degree = angle * (num - 1);
-  if (id === 1674165227168) {
-    console.log(num);
-  }
   return (
     <Box
       onClick={() => handleClick(id, num)}
@@ -33,6 +30,7 @@ export default function Slice({
         transformOrigin: "0% 100%",
         transform: `rotate(${degree}deg) skewY(calc(-90deg + ${angle}deg))`,
         background: filled ? purple["700"] : hovered ? purple["300"] : "white",
+        // border: filled && "2px solid white",
         border: filled ? "2px solid white" : `2px solid ${purple["700"]}`,
       }}
     />

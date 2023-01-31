@@ -10,6 +10,7 @@ import { GRAPHQL_ENDPOINT } from "../constants";
 import { UserContext } from "../userContext";
 import { useCallback } from "react";
 import debounce from "lodash/debounce";
+import { useRef } from "react";
 
 const Wrapper = styled("ul")({
   position: "relative",
@@ -29,15 +30,16 @@ export default function Clock({
   segments,
   type,
   name,
+  order,
   handleSliceClick,
-  handleNameChange,
-  handleSegmentChange,
+  handleClockChange,
   handleDelete,
 }) {
   const [hovered, setHovered] = useState();
   const [edit, setEdit] = useState(false);
   const { user } = useContext(UserContext);
   const [anchorEl, setAnchorEl] = useState();
+  const isMounted = useRef(false);
 
   const editClockQuery = gql`
     mutation ($query: ClockQueryInput, $set: ClockUpdateInput!) {
@@ -55,6 +57,7 @@ export default function Clock({
       name,
       segments,
       type,
+      order,
     },
   };
   const headers = { Authorization: `Bearer ${user._accessToken}` };
@@ -64,7 +67,10 @@ export default function Clock({
 
   const saveChanges = useCallback(
     debounce((vars) => {
-      updateClocks(vars);
+      if (isMounted.current) {
+        updateClocks(vars);
+      }
+      isMounted.current = true;
     }, 500),
     []
   );
@@ -76,7 +82,7 @@ export default function Clock({
   const handleMouseOut = () => setHovered();
 
   const changeName = (e) => {
-    handleNameChange(_id, e.target.value);
+    handleClockChange("name", _id, e.target.value);
   };
 
   const handleBlur = () => {
@@ -95,12 +101,12 @@ export default function Clock({
     if (num < filled) {
       handleSliceClick(_id, num);
     }
-    handleSegmentChange(_id, num);
+    handleClockChange("segments", _id, num);
     setAnchorEl();
   };
 
   return (
-    <Box display="flex" justifyContent="center" width="100%" height="100%">
+    <Box display="flex" justifyContent="center" width="100%" height="100%" flex={0.25}>
       <Box display="flex" flexDirection="column" alignItems="center">
         {edit ? (
           <TextField
@@ -131,7 +137,7 @@ export default function Clock({
           {Array(segments)
             .fill()
             .map((el, idx) => (
-              <li key={idx}>
+              <li key={_id + idx}>
                 <Slice
                   id={_id}
                   num={idx + 1}

@@ -1,4 +1,4 @@
-import { Box, Button, Grid, Typography } from "@mui/material";
+import { Box, Button, Grid, Stack, Typography } from "@mui/material";
 import request, { gql } from "graphql-request";
 import React, { useEffect, useState } from "react";
 import Clock from "./Clock";
@@ -14,12 +14,14 @@ export default function Clocks() {
 
   const getClocksQuery = gql`
     query {
-      clocks(sortBy: ORDER_DESC) {
+      clocks(sortBy: ORDER_ASC) {
         _id
         filled
         name
         segments
         type
+        row
+        order
       }
     }
   `;
@@ -49,22 +51,12 @@ export default function Clocks() {
       })
     );
   };
-  const handleNameChange = (id, name) => {
+
+  const handleClockChange = (name, id, value) => {
     setClocks(
       clocks.map((clock) => {
         if (clock._id === id) {
-          return { ...clock, name };
-        } else {
-          return clock;
-        }
-      })
-    );
-  };
-  const handleSegmentChange = (id, segments) => {
-    setClocks(
-      clocks.map((clock) => {
-        if (clock._id === id) {
-          return { ...clock, segments };
+          return { ...clock, [name]: value };
         } else {
           return clock;
         }
@@ -76,17 +68,24 @@ export default function Clocks() {
     mutation AddClock($data: ClockInsertInput!) {
       insertOneClock(data: $data) {
         _id
+        name
+        segments
+        type
+        filled
+        order
+        row
       }
     }
   `;
-  // const
-  const handleNewConfirm = async (name, segments) => {
+
+  const handleNewConfirm = async (name, segments, row) => {
     const response = await request(
       GRAPHQL_ENDPOINT,
       createClockQuery,
-      { data: { name, segments, type: "good", filled: 0, order: clocks.length + 1, row: 1 } },
+      { data: { name, segments, type: "good", filled: 0, order: clocks.length + 1, row } },
       headers
     );
+
     setClocks((prevState) => [...prevState, response.insertOneClock]);
     setClockEditorOpen(false);
   };
@@ -104,21 +103,45 @@ export default function Clocks() {
     await request(GRAPHQL_ENDPOINT, deleteClockQuery, { query: { _id } }, headers);
   };
 
+  const row1 = clocks.filter((clock) => clock.row === 1);
+  const row2 = clocks.filter((clock) => clock.row === 2);
+
   return (
-    <Box my={2}>
-      <Grid container spacing={1}>
-        {clocks.map((clock) => (
-          <Grid item xs={3} key={clock._id}>
-            <Clock
-              {...clock}
-              handleSliceClick={handleSliceClick}
-              handleNameChange={handleNameChange}
-              handleSegmentChange={handleSegmentChange}
-              handleDelete={handleDelete}
-            />
-          </Grid>
-        ))}
-      </Grid>
+    <Box m={2}>
+      <Box mb={3}>
+        <Typography variant="h4" textAlign="left" ml={6} gutterBottom>
+          Short Term
+        </Typography>
+        <Grid container spacing={1} alignItems="start">
+          {row1.map((clock) => (
+            <Grid key={clock._id} item xs={3}>
+              <Clock
+                {...clock}
+                handleSliceClick={handleSliceClick}
+                handleClockChange={handleClockChange}
+                handleDelete={handleDelete}
+              />
+            </Grid>
+          ))}
+        </Grid>
+      </Box>
+      <Box justifyContent="start">
+        <Typography variant="h4" textAlign="left" ml={6} gutterBottom>
+          Long Term
+        </Typography>
+        <Grid container spacing={1} alignItems="start">
+          {row2.map((clock) => (
+            <Grid key={clock._id} item xs={3}>
+              <Clock
+                {...clock}
+                handleSliceClick={handleSliceClick}
+                handleClockChange={handleClockChange}
+                handleDelete={handleDelete}
+              />
+            </Grid>
+          ))}
+        </Grid>
+      </Box>
       <NewClock
         open={clockEditorOpen}
         handleClose={() => setClockEditorOpen(false)}
