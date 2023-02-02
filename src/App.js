@@ -1,6 +1,6 @@
 import { Navigate, Route, Routes } from "react-router-dom";
 import "./App.css";
-import Clocks from "./Clock/Clocks";
+import Clocks from "./Clocks/Clocks";
 import Dashboard from "./Dashboard";
 import NavBar from "./NavBar";
 import Tables from "./Tables/Tables";
@@ -37,7 +37,6 @@ function App() {
             <Route path="/bitd" element={<NavBar />}>
               <Route path="clocks" element={<Clocks />} />
               <Route path="tables" element={<Tables />} />
-              <Route path="*" element={<div>No Match</div>} />
             </Route>
             <Route path="*" element={<Navigate to="/" />} />
           </Route>

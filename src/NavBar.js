@@ -9,7 +9,7 @@ export default function NavBar() {
   const { logOutUser } = useContext(UserContext);
   return (
     <Box>
-      <AppBar position="relative">
+      <AppBar position="relative" sx={{ zIndex: 2000 }}>
         <Toolbar>
           <Typography
             variant="h6"
@@ -23,6 +23,7 @@ export default function NavBar() {
           <Tabs value={location.pathname} textColor="primary" indicatorColor="secondary">
             <Tab value="/bitd/clocks" label="Clocks" component={Link} to="/bitd/clocks" />
             <Tab value="/bitd/tables" label="Tables" component={Link} to="/bitd/tables" />
+            <Tab value="/bitd/notes" label="Notes" component={Link} to="/bitd/notes" />
           </Tabs>
           <Button onClick={logOutUser} color="secondary" sx={{ ml: "auto" }}>
             Log Out

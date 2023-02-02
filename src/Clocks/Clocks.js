@@ -6,6 +6,7 @@ import NewClock from "./NewClock";
 import { GRAPHQL_ENDPOINT } from "../constants";
 import { useContext } from "react";
 import { UserContext } from "../userContext";
+import Loading from "../Loading";
 
 export default function Clocks() {
   const [clocks, setClocks] = useState([]);
@@ -105,43 +106,36 @@ export default function Clocks() {
 
   const row1 = clocks.filter((clock) => clock.row === 1);
   const row2 = clocks.filter((clock) => clock.row === 2);
+  const rows = [
+    { data: row1, title: "Short Term" },
+    { data: row2, title: "Long Term" },
+  ];
+
+  if (clocks.length === 0) {
+    return <Loading />;
+  }
 
   return (
     <Box p={4} component={Paper} minHeight="calc(100vh - 64px)">
-      <Box mb={3} minHeight="150px">
-        <Typography variant="h4" textAlign="left" gutterBottom>
-          Short Term
-        </Typography>
-        <Grid container spacing={1} alignItems="start">
-          {row1.map((clock) => (
-            <Grid key={clock._id} item xs={3}>
-              <Clock
-                {...clock}
-                handleSliceClick={handleSliceClick}
-                handleClockChange={handleClockChange}
-                handleDelete={handleDelete}
-              />
-            </Grid>
-          ))}
-        </Grid>
-      </Box>
-      <Box minHeight="150px">
-        <Typography variant="h4" textAlign="left" gutterBottom>
-          Long Term
-        </Typography>
-        <Grid container spacing={1} alignItems="start">
-          {row2.map((clock) => (
-            <Grid key={clock._id} item xs={3}>
-              <Clock
-                {...clock}
-                handleSliceClick={handleSliceClick}
-                handleClockChange={handleClockChange}
-                handleDelete={handleDelete}
-              />
-            </Grid>
-          ))}
-        </Grid>
-      </Box>
+      {rows.map((row, idx) => (
+        <Box key={row.title} mb={idx === 0 && 5} minHeight="150px">
+          <Typography variant="h4" textAlign="left" gutterBottom>
+            {row.title}
+          </Typography>
+          <Grid container spacing={2} alignItems="start">
+            {row.data.map((clock) => (
+              <Grid key={clock._id} item xs={12} sm={6} md={4} lg={3}>
+                <Clock
+                  {...clock}
+                  handleSliceClick={handleSliceClick}
+                  handleClockChange={handleClockChange}
+                  handleDelete={handleDelete}
+                />
+              </Grid>
+            ))}
+          </Grid>
+        </Box>
+      ))}
       <NewClock
         open={clockEditorOpen}
         handleClose={() => setClockEditorOpen(false)}
