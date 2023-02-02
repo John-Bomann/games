@@ -20,6 +20,11 @@ export default function Dashboard() {
       description: "Keep track of NPCs, locations, or plot points in a templated environment",
       path: "/bitd/notes",
     },
+    {
+      name: "Reference",
+      description: "Rules reference for easy access",
+      path: "",
+    },
   ];
   return (
     <Box>

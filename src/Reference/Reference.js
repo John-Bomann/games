@@ -4,6 +4,8 @@ import React from "react";
 import ReferenceCard from "./ReferenceCard";
 
 export default function Reference() {
+  // Expandable Cards
+  // Grid
   return (
     <Box p={4}>
       <Grid container spacing={1}>

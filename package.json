@@ -1,7 +1,7 @@
 {
   "name": "bitd-clocks",
   "version": "0.1.0",
-  "homepage": "https://john-bomann.github.io/games/",
+  "homepage": "https://john-bomann.github.io/ttrpg/",
   "private": false,
   "dependencies": {
     "@emotion/react": "^11.10.5",
