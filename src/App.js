@@ -10,6 +10,8 @@ import { UserContext } from "./userContext";
 import PrivateRoute from "./PrivateRoute";
 import Loading from "./Loading";
 import { CssBaseline } from "@mui/material";
+import Notes from "./Notes/Notes";
+import Reference from "./Reference/Reference";
 
 function App() {
   const [loading, setLoading] = useState(true);
@@ -37,6 +39,8 @@ function App() {
             <Route path="/bitd" element={<NavBar />}>
               <Route path="clocks" element={<Clocks />} />
               <Route path="tables" element={<Tables />} />
+              <Route path="notes" element={<Notes />} />
+              <Route path="reference" element={<Reference />} />
             </Route>
             <Route path="*" element={<Navigate to="/" />} />
           </Route>

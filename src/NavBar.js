@@ -24,6 +24,7 @@ export default function NavBar() {
             <Tab value="/bitd/clocks" label="Clocks" component={Link} to="/bitd/clocks" />
             <Tab value="/bitd/tables" label="Tables" component={Link} to="/bitd/tables" />
             <Tab value="/bitd/notes" label="Notes" component={Link} to="/bitd/notes" />
+            <Tab value="/bitd/reference" label="Reference" component={Link} to="/bitd/reference" />
           </Tabs>
           <Button onClick={logOutUser} color="secondary" sx={{ ml: "auto" }}>
             Log Out
