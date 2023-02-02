@@ -110,10 +110,10 @@ export default function Generator({ tables, name, order }) {
           </Grid>
         </CardContent>
       </Collapse>
-      <CardActions>
+      <CardActions sx={{ mx: "auto", display: "flex", justifyContent: "center", maxWidth: 600 }}>
         <Button
           onClick={switchView}
-          sx={{ flex: 0.2 }}
+          sx={{ flex: 0.25 }}
           variant={view === "display" ? "outlined" : "contained"}>
           Switch View
         </Button>
@@ -121,14 +121,14 @@ export default function Generator({ tables, name, order }) {
           variant="contained"
           onClick={rollTables}
           disabled={view === "buttons"}
-          sx={{ width: "50%", mx: "auto", my: 1, flex: 0.8 }}>
+          sx={{ width: "50%", my: 1, flex: 0.5 }}>
           Generate
         </Button>
         <Button
           variant="outlined"
           onClick={() => setCollapseIn(false)}
           disabled={view === "buttons"}
-          sx={{ flex: 0.2, boxSizing: "content-box" }}>
+          sx={{ flex: 0.25, boxSizing: "content-box" }}>
           Clear
         </Button>
       </CardActions>

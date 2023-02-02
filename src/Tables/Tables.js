@@ -94,8 +94,8 @@ export default function Tables() {
   return (
     <>
       <SearchBar search={search} handleSearchChange={handleSearchChange} />
-      <Box p={4} minHeight="calc(100vh-64px)">
-        <Grid container spacing={2}>
+      <Box p={4} px={{ xl: 8 }} minHeight="calc(100vh-64px)">
+        <Grid container spacing={{ xs: 2, xl: 4 }}>
           {generators.map((generator) => (
             <Grid key={generator.category} item xs={12} md={6}>
               <Generator
