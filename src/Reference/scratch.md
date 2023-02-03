@@ -102,6 +102,55 @@
 - Add heat to the crew from evidence or witnesses.
 - Suffer harm.
 
+### Threats
+
+- Charged Threats
+
+  - Losing the initiative
+  - Losing your opportunity
+  - Running out of time
+  - Being outmaneuvered
+  - Failing to notice trouble
+
+- Strange Threats
+
+  - Attracting a ghost’s attention
+  - Electroplasmic backlash
+  - Fear, panic, freezing up
+  - Hunted by the Spirit Wardens
+  - Tormented by a Forgotten God
+
+- Security Threats
+
+  - Raising the alert level
+  - Being hunted, searched for
+  - Bluecoats / Spirit Wardens arrive
+  - Being spotted or chased
+  - Getting cornered or captured
+
+- Tricky Threats
+
+  - Causing suspicion, distrust
+  - Getting confused or distracted
+  - Falling for lies and deceptions
+  - Falsely accused, set up
+  - Being lured into an ambush
+
+- Social Threats
+
+  - Losing someone’s respect
+  - Straining a relationship
+  - Making an awkward blunder
+  - Being barred or thrown out
+  - Making an enemy
+
+- Violent Threats
+  - Getting disarmed
+  - Attracting more Heat
+  - Minor or moderate harm
+  - Surrounded or captured
+  - Severe harm, death
+
 ## Score
 
 ### Plan
@@ -146,11 +195,44 @@
 
 ### Districts
 
+- Whitecrown
+  - The sprawling estates of the Lord Governor, Hunter Commander, Master Warden, and Doskvol Academy.
+- Brightstone
+  - The grand mansions and luxury shops of the wealthy elite.
+- Charterhall
+  - The city’s civic offices and the hub for shops, artisans, and commerce.
+- Six Towers
+  - A formerly rich district, now worn down and dilapidated.
+- Silkshore
+  - The “red lamp district” and artist
+    community.
+- Nightmarket
+  - The trade center for exotic goods imported by rail. Many vendors also trade in illicit goods.
+- Crow’s Foot
+  - A cramped neighborhood of multi-level streets, ruled by gangs.
+- The Docks
+  - Rough taverns, tattoo parlors, fighting pits, and warehouses.
+- Barrowcleft
+  - Residences and markets for the farmers who work the fields and eeleries.
+- Coalridge
+  - The remnants of Doskvol’s original hilltop mining settlement, now home to laborers
+    and industrial factories.
+- Charhollow
+  - A maze of tenements and squalid row houses.
+- Dunslough
+  - A labor camp served by convicts and a ghetto for the destitute poor.
+
 ### Shattered Isles
 
 - Akoros
+  - A land of dark, petrified forests and rocky hills. The rich coastal cities get their wealth from leviathan hunting and from mining colonies deep inland. The Akorosi are sometimes called “Imperials” since the Imperium began there. They are generally fair-skinned and dark haired.
 - Severos
+  - A land of windswept plains, covered in dark scrub and thorny growths. Outside the Imperial cities on the coast, some native Serverosi still live in free tribes, scavenging the death-lands on their ghost-hunting horses. They are generally dark-skinned and dark haired.
 - Iruvia
+  - A land of black deserts obsidian mountains, and raging volcanoes. Some say that positions of power are openly held by demons in Iruvia. The people are generally dark-skinned and dark haired.
 - The Dagger Isles
+  - A tropical archipelago covered in dense jungle growth; now turned dark and twisted from the strange magic of the cataclysm. Some say that the people there live without lightning barriers. How do they manage that? Native islanders are generally copper-skinned and dark haired.
 - Skovlan
+  - A ragged land of cold mountains and rough tundra. Skovlan was the last holdout against Imperial control. They are generally pale-skinned and fair haired or red haired.
 - Tycheros
+  - A far off land, disconnected from the Empire. People say the Tycherosi (rudely called "Strangers") have demon blood in their lineage.

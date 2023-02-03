@@ -4,7 +4,7 @@ import React, { useContext, useEffect, useState } from "react";
 import { GRAPHQL_ENDPOINT } from "../constants";
 import { UserContext } from "../userContext";
 import Generator from "./Generator";
-import { buildingOrder, cultOrder, npcOrder, streetOrder } from "./orders";
+import { buildingOrder, cultOrder, npcOrder, scoreOrder, streetOrder } from "./orders";
 import Table from "./Table";
 import Loading from "../Loading";
 import SearchBar from "./SearchBar";
@@ -45,6 +45,7 @@ export default function Tables() {
     { category: "building", name: "Building Generator", order: buildingOrder },
     { category: "street", name: "Street Generator", order: streetOrder },
     { category: "cult", name: "Cult Generator", order: cultOrder },
+    { category: "score", name: "Score Generator", order: scoreOrder },
   ];
 
   // ADD SEARCH FUNCTION in sticky navbar, with clear all button

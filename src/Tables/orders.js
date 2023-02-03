@@ -36,3 +36,15 @@ export const streetOrder = [
 ];
 
 export const cultOrder = ["forgottenGod", "cultPractice"];
+
+export const scoreOrder = [
+  "twistComplication",
+  "skullduggeryWork",
+  "violenceWork",
+  "underworldWork",
+  "unnaturalWork",
+  "civilianClientTarget",
+  "criminalClientTarget",
+  "politicalClientTarget",
+  "strangeClientTarget",
+];

@@ -11,6 +11,7 @@ import Loading from "../Loading";
 export default function Clocks() {
   const [clocks, setClocks] = useState([]);
   const [clockEditorOpen, setClockEditorOpen] = useState(false);
+  const [loading, setLoading] = useState(false);
   const { user } = useContext(UserContext);
 
   const getClocksQuery = gql`
@@ -31,8 +32,10 @@ export default function Clocks() {
   const getClocks = async () => {
     const response = await request(GRAPHQL_ENDPOINT, getClocksQuery, {}, headers);
     setClocks(response.clocks);
+    setLoading(false);
   };
   useEffect(() => {
+    setLoading(true);
     getClocks();
   }, []);
 
@@ -111,7 +114,7 @@ export default function Clocks() {
     { data: row2, title: "Long Term" },
   ];
 
-  if (clocks.length === 0) {
+  if (loading) {
     return <Loading />;
   }
 
