@@ -151,6 +151,36 @@
   - Surrounded or captured
   - Severe harm, death
 
+## Crew
+
+### XP
+
+### Heat
+
+- When your heat reaches 9, gain a wanted level and reset your heat.
+- Excess heat carries over.
+- The higher your wanted level, the higher quality and scale of the law enforcement's response.
+- Wanted level affects **Entanglements**
+
+### Incarceration
+
+- When one of your crew members, friends, contacts—or a framed enemy—is convicted and incarcerated for crimes associated with your crew, your wanted level is reduced by 1 and you clear your heat.
+- Incarceration may result from investigation and arrest by the Bluecoats, or because someone turns themselves in and takes the fall for the crew’s crimes.
+- Prison Sentence
+  - Wanted Level 4: Life or execution.
+  - Wanted Level 3: A year or two.
+  - Wanted Level 2: Several months.
+  - Wanted Level 1: A month or two.
+  - Wanted Level 0: A few weeks. Or, the Bluecoats give you a beating (suffer level 3 harm, no resistance roll allowed).
+- Incarceration Roll
+  - 1d for each crew tier level
+  - Critical: You make a name for yourself inside. You gain +3 rep for your crew, 1 prison claim and +1 faction status with a faction that you assisted while you served your time.
+  - 6: You do your time well. Your crew gains 1 prison claim and +1 faction status with a faction that you assisted while you served your time.
+  - 4/5: You keep your head down and do your time without incident.
+  - 1-3: It’s horrific. You suffer a level of trauma from the experience.
+
+### Rep
+
 ## Score
 
 ### Plan
@@ -185,9 +215,52 @@
 
 ### Payoff
 
+2. Coin
+
+### Reputation
+
+- Earn Rep = 2 + (score tier - crew tier)
+- No rep if no one knows about it
+
+### Coin
+
+- Tithe: Crew tier + 1
+- Amount
+  - 2 coin: A minor job; several full purses.
+  - 4 coin: A small job; a strongbox.
+  - 6 coin: A standard score; decent loot.
+  - 8 coin: A big score; serious loot.
+  - 10+ coin: A major score; impressive loot.
+- Maybe have scene with whoever is paying
+
 ### Heat
 
+- Base
+  - 0 heat: Smooth & quiet; low exposure.
+  - 2 heat: Contained; standard exposure.
+  - 4 heat: Loud & chaotic; high exposure.
+  - 6 heat: Wild; devastating exposure
+- Modifiers
+  - Add +1 heat for a high-profile or well-connected target.
+  - Add +1 heat if the situation happened on hostile turf.
+  - Add +1 heat if you’re at war with another faction.
+  - Add +2 heat if killing was involved (whether the crew did the killing or not—bodies draw attention).
+
 ### Entanglements
+
+- Roll 1d for each wanted level
+- 0-3 Heat
+  - 1-3: Gang Trouble or The Usual Suspects
+  - 4/5: Rivals or Unquiet Dead
+  - 6: Cooperation
+- 4-5 Heat
+  - 1-3: Gang Trouble or Questioning
+  - 4/5: Reprisals or Unquiet Dead
+  - 6: Show of Force
+- 6+ Heat
+  - 1-3: Flipped or Interrogation
+  - 4/5: Demonic Notice or Show of Force
+  - 6: Arrest
 
 ### Downtime
 

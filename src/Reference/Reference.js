@@ -1,18 +1,34 @@
-import { Grid } from "@mui/material";
+import { Container, Grid } from "@mui/material";
 import { Box } from "@mui/system";
-import React from "react";
+import React, { useEffect, useState } from "react";
+import ReactMarkdown from "react-markdown";
+import Srd from "./Srd";
 import ReferenceCard from "./ReferenceCard";
+import Score from "./score";
+import Loading from "../Loading";
+
+// function Heading({ children, level }) {
+//   const text = children.reduce(reduceTextChildren, []).join(" ");
+//   const slug = text
+//     .toLowerCase()
+//     .replace(/\s+/g, "-")
+//     .replace(/[^a-z-]/g, "");
+
+//   return React.createElement(`h${level}`, { id: slug }, children);
+// }
 
 export default function Reference() {
-  // Expandable Cards
-  // Grid
+  let [md, setMd] = useState();
+
+  // useEffect(() => {
+  //   fetch(everything)
+  //     .then((response) => response.text())
+  //     .then((text) => setMd(text));
+  // }, []);
+
   return (
-    <Box p={4}>
-      <Grid container spacing={1}>
-        <Grid item xs={6} md={4} xl={3}>
-          <ReferenceCard />
-        </Grid>
-      </Grid>
-    </Box>
+    <Container p={4} sx={{ textAlign: "left" }}>
+      <Srd />
+    </Container>
   );
 }

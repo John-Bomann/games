@@ -23,7 +23,7 @@ export default function Dashboard() {
     {
       name: "Reference",
       description: "Rules reference for easy access",
-      path: "",
+      path: "/bitd/reference",
     },
   ];
   return (
